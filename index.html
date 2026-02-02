@@ -107,20 +107,36 @@
       width: 100px;
       vertical-align: middle;
     }
+
+    #startBtn {
+      position: relative;
+      padding:16px 28px;
+      font-size:18px;
+      border-radius:999px;
+      border:none;
+      background:#ff3b7a;
+      color:white;
+      cursor:pointer;
+      box-shadow:0 10px 24px rgba(0,0,0,.14);
+      margin-top:16px;
+    }
   </style>
 </head>
 
 <body>
 <canvas id="confettiCanvas"></canvas>
 
-<audio id="music" autoplay loop>
+<audio id="music" loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6f4f9b9bb3.mp3" type="audio/mpeg">
 </audio>
 
 <div class="card">
   <h1>Hey Roza 💕<br>Will you be my Valentine?</h1>
 
-  <div class="button-zone" id="zone">
+  <!-- Start button to enable music autoplay -->
+  <button id="startBtn">Start Valentine 💖</button>
+
+  <div class="button-zone" id="zone" style="display:none;">
     <button id="yesBtn">Yes 💖</button>
     <button id="noBtn">No 🙄</button>
   </div>
@@ -146,6 +162,16 @@
   const result = document.getElementById("result");
   const canvas = document.getElementById("confettiCanvas");
   const confettiInstance = confetti.create(canvas, { resize: true });
+
+  const startBtn = document.getElementById("startBtn");
+  const music = document.getElementById("music");
+
+  // Start button click → play music and show buttons
+  startBtn.addEventListener("click", () => {
+    music.play();
+    startBtn.style.display = "none";
+    zone.style.display = "block";
+  });
 
   function confettiBoom() {
     confettiInstance({
@@ -231,7 +257,6 @@
   });
 
   // Volume control
-  const music = document.getElementById("music");
   const volControl = document.getElementById("volControl");
   volControl.addEventListener("input", () => {
     music.volume = volControl.value;
