@@ -103,11 +103,6 @@
       to { opacity: 1; }
     }
 
-    input[type="range"] {
-      width: 100px;
-      vertical-align: middle;
-    }
-
     #startBtn {
       position: relative;
       padding:16px 28px;
@@ -121,7 +116,7 @@
       margin-top:16px;
     }
 
-    /* New style: Dark mode button fixed top-left */
+    /* Dark mode button fixed top-left */
     #darkModeBtn {
       position: fixed;
       top: 16px;
@@ -140,6 +135,29 @@
     #darkModeBtn:hover {
       background: #777;
     }
+
+    /* WhatsApp button fixed top-right */
+    #waBtn {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      padding: 12px 20px;
+      border-radius: 999px;
+      border: none;
+      background: #25D366;
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 10000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      display: none; /* hidden initially */
+    }
+
+    #waBtn:hover {
+      background: #20b858;
+    }
+
   </style>
 </head>
 
@@ -161,15 +179,11 @@
     <button id="noBtn">No 🙄</button>
   </div>
 
-  <div style="margin-top:16px;">
-    <label for="volControl" style="font-size:14px;">🎵 Volume</label>
-    <input id="volControl" type="range" min="0" max="1" step="0.01" value="0.5">
-  </div>
-
   <div class="result" id="result"></div>
 </div>
 
 <button id="darkModeBtn">🌙 Dark Mode</button>
+<button id="waBtn">Message you 😘</button>
 
 <script>
   const herName = "Roza";
@@ -186,6 +200,8 @@
 
   const startBtn = document.getElementById("startBtn");
   const music = document.getElementById("music");
+  const waBtn = document.getElementById("waBtn");
+  const waUrl = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(whatsappMessage);
 
   // Start button click → play music and show buttons
   startBtn.addEventListener("click", () => {
@@ -217,8 +233,6 @@
   yesBtn.addEventListener("click", () => {
     zone.style.display = "none";
 
-    let seconds = 7;
-
     result.innerHTML = `
       <h2>Bahbk ya 2mr 💕</h2>
       <p style="font-size:18px">
@@ -234,54 +248,18 @@
              border-radius:16px;
            "
       />
+    `;
 
-      <p id="countdown" style="font-size:16px;opacity:.8">
-        Opening WhatsApp in ${seconds}…
-      </p>
+    result.style.display = "block";
+    confettiBoom();
 
-         <div style="text-align:center; margin-top:14px;">
-      <button id="waBtn"
-        style="
-          padding:14px 26px;
-          font-size:18px;
-          border-radius:999px;
-          border:none;
-          background:#25D366;
-          color:white;
-          font-weight:700;
-          cursor:pointer;
-        ">
-        Message you 😘
-      </button>
-    </div>
-  `;
+    // Show WhatsApp button in top-right
+    waBtn.style.display = "block";
+  });
 
-  result.style.display = "block";
-  confettiBoom();
-
-  const countdownEl = document.getElementById("countdown");
-  const waBtn = document.getElementById("waBtn");
-  const waUrl = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(whatsappMessage);
-
-  const timer = setInterval(() => {
-    seconds--;
-    if (seconds > 0) {
-      countdownEl.textContent = `Opening WhatsApp in ${seconds}…`;
-    } else {
-      countdownEl.textContent = `Ready when you are 💕`;
-      clearInterval(timer);
-    }
-  }, 1000);
-
+  // WhatsApp button click → open link
   waBtn.addEventListener("click", () => {
     window.location.href = waUrl;
-  });
-});
-
-  // Volume control
-  const volControl = document.getElementById("volControl");
-  volControl.addEventListener("input", () => {
-    music.volume = volControl.value;
   });
 
   // Dark mode toggle
@@ -292,6 +270,7 @@
 </script>
 </body>
 </html>
+
 
 <!--
 <!DOCTYPE html>
