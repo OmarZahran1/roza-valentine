@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Roza ❤️</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at top, #ffeef6, #ffd6e7);
+      font-family: system-ui, sans-serif;
+      overflow: hidden;
+      padding: 16px;
+    }
+
+    #confettiCanvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .card {
+      width: min(720px, 92vw);
+      padding: 26px;
+      background: #ffffffcc;
+      backdrop-filter: blur(10px);
+      border-radius: 22px;
+      text-align: center;
+      box-shadow: 0 18px 60px rgba(0,0,0,.15);
+    }
+
+    h1 {
+      font-size: clamp(26px, 4vw, 44px);
+      margin-bottom: 20px;
+    }
+
+    .button-zone {
+      position: relative;
+      width: 100%;
+      height: 150px;
+    }
+
+    button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 16px 28px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 24px rgba(0,0,0,.14);
+    }
+
+    #yesBtn {
+      left: 20%;
+      background: #ff3b7a;
+      color: white;
+    }
+
+    #noBtn {
+      left: 60%;
+      background: #e5e7eb;
+    }
+
+    .result {
+      display: none;
+      animation: pop .4s ease;
+    }
+
+    @keyframes pop {
+      from { opacity: 0; transform: scale(.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+<canvas id="confettiCanvas"></canvas>
+
+<audio id="music" autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_6f4f9b9bb3.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+  <h1>Hey Roza 💕<br>Will you be my Valentine?</h1>
+
+  <div class="button-zone" id="zone">
+    <button id="yesBtn">Yes 💖</button>
+    <button id="noBtn">No 🙄</button>
+  </div>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+  const herName = "Roza";
+  const phoneNumber = "201111027548"; // 👈 CHANGE THIS
+  const whatsappMessage =
+    "I clicked YES 💖 I’m officially your Valentine 😘";
+
+  const zone = document.getElementById("zone");
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+  const result = document.getElementById("result");
+
+  const canvas = document.getElementById("confettiCanvas");
+  const confettiInstance = confetti.create(canvas, { resize: true });
+
+  function confettiBoom() {
+    confettiInstance({
+      particleCount: 300,
+      spread: 140,
+      origin: { y: 0.6 }
+    });
+  }
+
+  function moveNo(e) {
+    const z = zone.getBoundingClientRect();
+    const x = Math.random() * (z.width - 80);
+    const y = Math.random() * (z.height - 40);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+    yesBtn.style.transform = "translateY(-50%) scale(1.15)";
+  }
+
+  zone.addEventListener("mousemove", moveNo);
+  noBtn.addEventListener("click", e => e.preventDefault());
+
+  yesBtn.addEventListener("click", () => {
+    zone.style.display = "none";
+
+    result.innerHTML = `
+      <h2>YAAAAY ${herName} 💖🎉</h2>
+      <p style="font-size:18px">
+        You just made my heart officially yours 🥹❤️<br>
+        Happy Valentine’s Day!
+      </p>
+      <img src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif"
+           style="width:300px;border-radius:16px">
+    `;
+
+    result.style.display = "block";
+    confettiBoom();
+
+    setTimeout(() => {
+      window.location.href =
+        "https://wa.me/" +
+        phoneNumber +
+        "?text=" +
+        encodeURIComponent(whatsappMessage);
+    }, 1800);
+  });
+</script>
+</body>
+</html>
