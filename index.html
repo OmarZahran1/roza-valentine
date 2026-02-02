@@ -137,7 +137,7 @@
   yesBtn.addEventListener("click", () => {
   zone.style.display = "none";
 
-  let seconds = 5;
+  let seconds = 7;
 
   result.innerHTML = `
       <h2>Bahbk ya 2mr 💕</h2>
@@ -146,7 +146,14 @@
         Happy Valentine’s Day!
       </p>
       <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWVrbm9sdzk2bGwydTNyZm01bHlhN280OHI0OGEyaWQwa2t5NmlwNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/aNNP53cpJcQnZT2xCc/giphy.gif"
-           style="width:300px;border-radius:16px">
+           style="
+      width:280px;
+      max-width:90%;
+      margin:10px auto;
+      display:block;
+      border-radius:16px;
+    "
+      />
 
     <p id="countdown" style="font-size:16px;opacity:.8">
       Opening WhatsApp in ${seconds}…
