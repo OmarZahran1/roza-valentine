@@ -218,9 +218,9 @@
         Opening WhatsApp in ${seconds}…
       </p>
 
+         <div style="text-align:center; margin-top:14px;">
       <button id="waBtn"
         style="
-          margin-top:14px;
           padding:14px 26px;
           font-size:18px;
           border-radius:999px;
@@ -232,29 +232,30 @@
         ">
         Message you 😘
       </button>
-    `;
+    </div>
+  `;
 
-    result.style.display = "block";
-    confettiBoom();
+  result.style.display = "block";
+  confettiBoom();
 
-    const countdownEl = document.getElementById("countdown");
-    const waBtn = document.getElementById("waBtn");
-    const waUrl = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(whatsappMessage);
+  const countdownEl = document.getElementById("countdown");
+  const waBtn = document.getElementById("waBtn");
+  const waUrl = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(whatsappMessage);
 
-    const timer = setInterval(() => {
-      seconds--;
-      if (seconds > 0) {
-        countdownEl.textContent = `Opening WhatsApp in ${seconds}…`;
-      } else {
-        countdownEl.textContent = `Ready when you are 💕`;
-        clearInterval(timer);
-      }
-    }, 1000);
+  const timer = setInterval(() => {
+    seconds--;
+    if (seconds > 0) {
+      countdownEl.textContent = `Opening WhatsApp in ${seconds}…`;
+    } else {
+      countdownEl.textContent = `Ready when you are 💕`;
+      clearInterval(timer);
+    }
+  }, 1000);
 
-    waBtn.addEventListener("click", () => {
-      window.location.href = waUrl;
-    });
+  waBtn.addEventListener("click", () => {
+    window.location.href = waUrl;
   });
+});
 
   // Volume control
   const volControl = document.getElementById("volControl");
